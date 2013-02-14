@@ -1,10 +1,11 @@
 #include "testApp.h"
+#include "ofxXmlSettings.h"
 
 
-const int numX = 4;
-const int numY = 4;
-bool bDisplayNames = true;
-bool bMute = false;
+int numX;
+int numY;
+bool bDisplayNames;
+bool bMute;
 
 
 class VideoCell {
@@ -34,7 +35,14 @@ vector<VideoCell*> videoCells;
 VideoCell *bigVideo = NULL;
 
 //--------------------------------------------------------------
-void testApp::setup(){
+void testApp::setup() {
+    ofxXmlSettings xml;
+    xml.loadFile("settings.xml");
+    numX = xml.getValue("numX", 4);
+    numY = xml.getValue("numY", 4);
+    bDisplayNames = xml.getValue("bDisplayNames", true);
+    bMute = xml.getValue("bMute", true);
+    
     ofSetVerticalSync(true);
     ofBackground(0);
     ofDirectory dir;
